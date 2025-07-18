@@ -24,9 +24,14 @@ import { INIT_PAGE_META } from "@/constants";
 import { IPageMeta } from "@/types/pagination";
 import TodoForm from "./form";
 import Menu from "@/components/custom/menu";
-import { useSearchParams } from "next/navigation";
 
-export default function TodoPage() {
+export default function TodoPage({ 
+  initialTodosData = [],
+  userId 
+}: { 
+  initialTodosData?: ITodo[], 
+  userId?: string 
+}) {
   const [pageMeta, setPageMeta] = useState<IPageMeta>(INIT_PAGE_META);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -37,14 +42,14 @@ export default function TodoPage() {
   const [openModal, setOpenModal] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const { md } = useBreakpoint();
-  const param = useSearchParams();
-  const userId = param.get("userId");
 
-  const { data, isFetching } = useGetTodosQuery({
+  const { data: rtqData, isFetching } = useGetTodosQuery({
     start: pageMeta.start,
     limit: 10,
     userId: userId ? Number(userId) : undefined,
   });
+
+  const data = rtqData || initialTodosData;
 
   useEffect(() => {
     setIsMounted(true);

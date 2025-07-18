@@ -5,7 +5,7 @@ This is a modern web application built with Next.js that demonstrates different 
 ## Features
 
 - User listing with Server-Side Rendering (SSR)
-- Todo management with client-side data fetching
+- Todo management with hybrid approach (SSR for initial data, client-side for interactions)
 - Interactive pagination for todos
 - Theme switching (light/dark mode)
 - Responsive design
@@ -65,7 +65,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Data Fetching Approach
 
-This project demonstrates two different approaches to data fetching:
+This project demonstrates different approaches to data fetching:
 
 ### 1. Server-Side Rendering (SSR) for User Data
 
@@ -78,16 +78,25 @@ The `/users` API endpoint is fetched using Next.js Server Components. This appro
 
 Implementation can be found in `src/app/page.tsx`.
 
-### 2. RTK Query for Todo Data
+### 2. Hybrid Approach for Todo Data
 
-The `/todos` API endpoint is fetched using RTK Query. This approach is used because:
+The `/todos` API endpoint uses a hybrid approach combining SSR for initial data and RTK Query for subsequent interactions:
 
-- Todo data requires interactive features like pagination
+#### Initial SSR Fetching
+- The initial todo data is fetched server-side in `src/app/todo/page.tsx`
+- This provides faster initial page load with pre-rendered content
+- Improves SEO by having content available on first render
+- Reduces client-side JavaScript needed for initial render
+
+#### RTK Query for Interactive Features
+- After initial load, RTK Query takes over for pagination and filtering
 - It provides efficient client-side caching and request deduplication
 - It handles loading and error states automatically
 - It enables optimistic updates for better user experience
 
-Implementation can be found in `src/store/todo/api.ts` and `src/components/pages/todo/index.tsx`.
+Implementation can be found in:
+- Server-side initial fetch: `src/app/todo/page.tsx`
+- Client-side data management: `src/store/todo/api.ts` and `src/components/pages/todo/index.tsx`
 
 ## State Management
 
