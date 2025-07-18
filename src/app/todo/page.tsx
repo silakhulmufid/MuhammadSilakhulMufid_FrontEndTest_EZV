@@ -4,8 +4,8 @@ export const revalidate = 60;
 
 export default async function Todo({ 
   searchParams 
-}: { 
-  searchParams: { userId?: string } 
+}: {
+  searchParams: Promise<{ userId?: string }>
 }) {
   const { userId } = await searchParams;
   const res = await fetch(`https://jsonplaceholder.typicode.com/todos${

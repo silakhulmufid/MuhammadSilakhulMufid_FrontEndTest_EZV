@@ -19,18 +19,18 @@ import TableData from "@/components/custom/table-data";
 import { ITodo } from "@/types/todo";
 import { Button } from "@/components/ui/button";
 import useBreakpoint from "@/hooks/useBreakpoint";
-import { DoorOpenIcon, EllipsisVertical, Plus } from "lucide-react";
+import { DoorOpenIcon, Plus } from "lucide-react";
 import { INIT_PAGE_META } from "@/constants";
 import { IPageMeta } from "@/types/pagination";
 import TodoForm from "./form";
 import Menu from "@/components/custom/menu";
 
-export default function TodoPage({ 
+export default function TodoPage({
   initialTodosData = [],
-  userId 
-}: { 
-  initialTodosData?: ITodo[], 
-  userId?: string 
+  userId,
+}: {
+  initialTodosData?: ITodo[];
+  userId?: string;
 }) {
   const [pageMeta, setPageMeta] = useState<IPageMeta>(INIT_PAGE_META);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -75,27 +75,16 @@ export default function TodoPage({
       header: isMounted && md ? "Actions" : "",
       enableHiding: false,
       cell: ({ row }) => (
-        <div className="flex gap-2">
-          <Button
-            size="xs"
-            variant="default"
-            className="hidden md:block"
-            onClick={() => {
-              setEditData(row.original);
-              setOpenModal(true);
-            }}
-          >
-            <span>Edit</span>
-          </Button>
-          <Button
-            size="icon_sm"
-            variant="ghost"
-            className="block md:hidden"
-            onClick={() => setOpenMenu(true)}
-          >
-            <EllipsisVertical />
-          </Button>
-        </div>
+        <Button
+          size="xs"
+          variant="default"
+          onClick={() => {
+            setEditData(row.original);
+            setOpenModal(true);
+          }}
+        >
+          <span>Edit</span>
+        </Button>
       ),
     },
   ];
