@@ -127,8 +127,7 @@ export default function TodoForm({
                     <div className="space-y-0.5">
                       <FormLabel>Status</FormLabel>
                       <FormDescription>
-                        Status of todo. If checked, the todo is considered
-                        completed.
+                        If checked, the todo is considered completed.
                       </FormDescription>
                     </div>
                     <FormControl>
